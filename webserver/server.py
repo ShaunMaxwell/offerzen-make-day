@@ -1,5 +1,5 @@
 import logging
-
+from phone import Phone
 from flask import Flask, json, request
 
 app = Flask(__name__)
@@ -23,6 +23,20 @@ def make_name():
 
     response = app.response_class(
         response=json.dumps(result),
+        status=200,
+        mimetype='application/json'
+    )
+    return response
+
+@app.route("/get_phones", methods=['GET'])
+def get_brands():
+    """
+    gets list of phones from root API
+    :return: list of supported phone models
+    """
+    phone = Phone()
+    response = app.response_class(
+        response=json.dumps(phone.get_brands()),
         status=200,
         mimetype='application/json'
     )
